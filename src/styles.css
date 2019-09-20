@@ -24,6 +24,11 @@ ul {
   margin-bottom: 10px;
 }
 
+.board {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
 .board-square {
   background: #fff;
   border: 1px solid #999;
@@ -57,6 +62,8 @@ ul {
 .game {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-info {
