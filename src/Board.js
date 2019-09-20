@@ -7,6 +7,7 @@ import "./styles.css";
 const initialState = {
   squares: Array(9).fill(null),
   xIsNext: true,
+  gameOver: false,
   positions: [],
   hasError: false
 };
@@ -45,10 +46,20 @@ class Board extends React.Component {
   };
 
   handleClick = i => {
-    const { squares: stateSquares, xIsNext } = this.state;
-    const [winner, positions] = checkWinner(stateSquares);
+    const { gameOver, squares: stateSquares, xIsNext } = this.state;
 
     const squares = stateSquares.slice();
+
+    // if already marked, do nothing
+    if (gameOver || squares[i] !== null) {
+      return false; // No update
+    }
+
+    squares[i] = xIsNext ? "X" : "O";
+
+    // if next marker, announces winner
+    const [winner, positions] = checkWinner(squares);
+
     if (!!winner) {
       // for crossing winning positions on the board
       const [a, b, c] = positions;
@@ -56,22 +67,12 @@ class Board extends React.Component {
       squares[a] = this.getPrefix(winner);
       squares[b] = this.getPrefix(winner);
       squares[c] = this.getPrefix(winner);
-
-      this.setState({
-        squares
-      });
-
-      return false; // No update
     }
 
-    if (squares[i]) {
-      return false; // No update
-    }
-
-    squares[i] = xIsNext ? "X" : "O";
     this.setState(prevState => ({
       squares,
-      xIsNext: !prevState.xIsNext
+      xIsNext: !prevState.xIsNext,
+      gameOver: !!winner
     }));
   };
 
