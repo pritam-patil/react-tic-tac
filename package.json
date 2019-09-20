@@ -1,7 +1,8 @@
 {
   "name": "basic-tic-tac",
   "version": "1.0.0",
-  "description": "",
+  "description": "Basic Tic-Tac-Toe with markers",
+  "homepage": "https://pritam-patil.github.io/basic-tic-tac",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
@@ -10,11 +11,13 @@
     "react-scripts": "3.0.1"
   },
   "devDependencies": {
+    "gh-pages": "^2.1.1",
     "typescript": "3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "npm run build; mv build docs; gh-pages -d docs",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
